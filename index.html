@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 ie9-and-less ie8-and-less ie7-and-less" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 ie9-and-less ie8-and-less ie7-and-less" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 ie9-and-less ie8-and-less" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 ie9-and-less" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>Mimic</title>
+        <meta name="description" content="Mimic is a Javascript library to automatically maintain a copy of a DOM node and its children for fun and profit.">
+        <link rel="icon" href="http://static.hubspot.com/favicon.ico">
+        <script type="text/javascript" src="//use.typekit.net/jbn8qxr.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://underscorejs.org/underscore.js"></script>
+        <style>
+            html, body {
+                margin: 0;
+                height: 100%;
+            }
+
+            body {
+                font-family: "Helvetica Neue", sans-serif;
+            }
+
+            .perspective {
+                -webkit-perspective: 700px;
+                height: 100%;
+                width: 100%;
+            }
+
+            .mimic {
+                position: fixed;
+                margin: auto;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: 200px;
+                width: 400px;
+                max-width: 100%;
+            }
+
+            .mimic-outer {
+                -webkit-user-select: none;
+                pointer-events: none;
+            }
+
+            .mimic-outer .mimic {
+                -webkit-filter: blur(1em);
+                -webkit-transform: rotateX(-110deg) translateZ(50px);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="perspective">
+            <div class="mimic"></div>
+        </div>
+
+        <!-- script>mimicOptions = {auto: false};</script -->
+        <script src="/mimic/mimic.js"></script>
+        <script>
+            var mimc, items, number;
+
+            mimic = new Mimic({ el: $('.mimic')[0] });
+
+            number = 0;
+
+            items = [
+                '<h1>M</h1>',
+                '<h1>Mi</h1>',
+                '<h1>Mim</h1>',
+                '<h1>Mimi</h1>',
+                '<h1>Mimic</h1>',
+                '<h1>Mimic</h1><p>B</p>',
+                '<h1>Mimic</h1><p>By</p>',
+                '<h1>Mimic</h1><p>By A</p>',
+                '<h1>Mimic</h1><p>By Ad</p>',
+                '<h1>Mimic</h1><p>By Ada</p>',
+                '<h1>Mimic</h1><p>By Adam</p>',
+                '<h1>Mimic</h1><p>By Adam S</p>',
+                '<h1>Mimic</h1><p>By Adam Sc</p>',
+                '<h1>Mimic</h1><p>By Adam Sch</p>',
+                '<h1>Mimic</h1><p>By Adam Schw</p>',
+                '<h1>Mimic</h1><p>By Adam Schwa</p>',
+                '<h1>Mimic</h1><p>By Adam Schwar</p>',
+                '<h1>Mimic</h1><p>By Adam Schwart</p>',
+                '<h1>Mimic</h1><p>By Adam Schwartz</p>'
+            ];
+
+            var next = function() {
+                if (number < items.length) {
+                    $('.mimic')[0].innerHTML = items[number];
+                    number += 1
+                    setTimeout(next, 100);
+                }
+            };
+
+            next();
+        </script>
+
+        <!-- Share -->
+
+        <!-- Start of Async HubSpot Analytics Code -->
+        <script type="text/javascript">
+            (function(d,s,i,r) {
+                if (d.getElementById(i)){return;}
+                var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+                n.id=i;n.src='//js.hubspot.com/analytics/'+(Math.ceil(new Date()/r)*r)+'/51294.js';
+                e.parentNode.insertBefore(n, e);
+            })(document,"script","hs-analytics",300000);
+        </script>
+        <!-- End of Async HubSpot Analytics Code -->
+
+        <!-- Force 3d acceleration always and forever :) -->
+        <div style="-webkit-transform: translateZ(0)"></div>
+    </body>
+</html>
