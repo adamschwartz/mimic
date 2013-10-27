@@ -39,8 +39,12 @@
                 right: 0;
                 bottom: 0;
                 left: 0;
-                height: 200px;
-                width: 400px;
+                height: 250px;
+                width: 350px;
+                max-width: 100%;
+            }
+
+            img {
                 max-width: 100%;
             }
 
@@ -50,7 +54,7 @@
             }
 
             .mimic-outer .mimic {
-                -webkit-filter: blur(1em);
+                -webkit-filter: blur(1em) grayscale(1);
                 -webkit-transform: rotateX(-110deg) translateZ(50px);
             }
         </style>
@@ -70,33 +74,33 @@
             number = 0;
 
             items = [
-                '<h1>M</h1>',
-                '<h1>Mi</h1>',
-                '<h1>Mim</h1>',
-                '<h1>Mimi</h1>',
-                '<h1>Mimic</h1>',
-                '<h1>Mimic</h1><p>B</p>',
-                '<h1>Mimic</h1><p>By</p>',
-                '<h1>Mimic</h1><p>By A</p>',
-                '<h1>Mimic</h1><p>By Ad</p>',
-                '<h1>Mimic</h1><p>By Ada</p>',
-                '<h1>Mimic</h1><p>By Adam</p>',
-                '<h1>Mimic</h1><p>By Adam S</p>',
-                '<h1>Mimic</h1><p>By Adam Sc</p>',
-                '<h1>Mimic</h1><p>By Adam Sch</p>',
-                '<h1>Mimic</h1><p>By Adam Schw</p>',
-                '<h1>Mimic</h1><p>By Adam Schwa</p>',
-                '<h1>Mimic</h1><p>By Adam Schwar</p>',
-                '<h1>Mimic</h1><p>By Adam Schwart</p>',
-                '<h1>Mimic</h1><p>By Adam Schwartz</p>'
+                ['<h1>M</h1>', 100],
+                ['<h1>Mi</h1>', 100],
+                ['<h1>Mim</h1>', 100],
+                ['<h1>Mimi</h1>', 100],
+                ['<h1>Mimic</h1>', 100],
+                ['<h1>Mimic</h1><p>B</p>', 100],
+                ['<h1>Mimic</h1><p>By</p>', 100],
+                ['<h1>Mimic</h1><p>By A</p>', 100],
+                ['<h1>Mimic</h1><p>By Ad</p>', 100],
+                ['<h1>Mimic</h1><p>By Ada</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam S</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Sc</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Sch</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Schw</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Schwa</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Schwar</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Schwart</p>', 100],
+                ['<h1>Mimic</h1><p>By Adam Schwartz</p>', 3000],
+                ['<img src="https://www.google.com/images/srpr/logo11w.png" />', 3000],
+                ['<img style="-webkit-user-select: none;-webkit-filter: contrast(3);" src="http://media0.giphy.com/media/ohdlCZB6qSvYc/giphy.gif" />', 3000]
             ];
 
             var next = function() {
-                if (number < items.length) {
-                    $('.mimic')[0].innerHTML = items[number];
-                    number += 1
-                    setTimeout(next, 100);
-                }
+                $('.mimic')[0].innerHTML = items[number][0];
+                setTimeout(next, items[number][1]);
+                number = (number + 1) % items.length;
             };
 
             next();
