@@ -185,7 +185,7 @@
                 $('.header-mimic-styles').html('.header-mimic .messages { padding-top: ' + Math.round($('.header-mimic .messages').height()) + 'px }');
                 $('.footer-mimic-styles').html('.footer-mimic .messages { padding-bottom: ' + Math.round($('.footer-mimic .messages').height()) + 'px }');
 
-                $messages.bind('scroll touchmove', function(){
+                var onScrolled = function () {
                     $mimicMessages.each(function(){
                         if ($(this).parents('.footer-mimic').length) {
                             $(this).scrollTop($messages.get(0).scrollTop + ($(this).offset().top - $messages.offset().top));
@@ -193,9 +193,26 @@
                             $(this).scrollTop($messages.get(0).scrollTop);
                         }
                     });
+                };
+
+                var touchScrolling = false;
+
+                $messages.bind('scroll touchmove', function(){
+                    onScrolled();
+                    touchScrolling = false;
                 });
 
-                $messages.scroll();
+                $messages.bind('touchstart', function(){
+                    touchScrolling = true;
+                });
+
+                setInterval(function(){
+                    if (touchScrolling === true) {
+                        onScrolled();
+                    }
+                }, 50);
+
+                onScrolled();
             })();
         </script>
 
