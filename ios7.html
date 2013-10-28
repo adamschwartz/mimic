@@ -185,7 +185,7 @@
                 $('.header-mimic-styles').html('.header-mimic .messages { padding-top: ' + Math.round($('.header-mimic .messages').height()) + 'px }');
                 $('.footer-mimic-styles').html('.footer-mimic .messages { padding-bottom: ' + Math.round($('.footer-mimic .messages').height()) + 'px }');
 
-                $messages.scroll(function(){
+                $messages.bind('scroll touchmove', function(){
                     $mimicMessages.each(function(){
                         if ($(this).parents('.footer-mimic').length) {
                             $(this).scrollTop($messages.get(0).scrollTop + ($(this).offset().top - $messages.offset().top));
