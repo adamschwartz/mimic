@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 ie9-and-less ie8-and-less ie7-and-less" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 ie9-and-less ie8-and-less ie7-and-less" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 ie9-and-less ie8-and-less" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 ie9-and-less" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>Mimic</title>
+        <meta name="description" content="Mimic is a Javascript library to automatically maintain a copy of a DOM node and its children for fun and profit.">
+        <link rel="icon" href="http://static.hubspot.com/favicon.ico">
+        <script type="text/javascript" src="//use.typekit.net/jbn8qxr.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://underscorejs.org/underscore.js"></script>
+        <style>
+            html, body {
+                margin: 0;
+                height: 100%;
+            }
+
+            body {
+                font-family: "Helvetica Neue", sans-serif;
+                color: #444;
+            }
+
+            .iphone-outer {
+                position: relative;
+                width: 280px;
+                max-width: 100%;
+                height: 100%;
+                margin: 0 auto;
+            }
+
+            .iphone {
+                position: absolute;
+                height: 0;
+                background: #2E2E2E;
+                padding-bottom: 195%;
+                width: 100%;
+                margin: auto;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 32px;
+            }
+
+            .messages {
+                position: absolute;
+                top: 10%;
+                bottom: 10%;
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+            }
+
+            .message {
+                border-radius: 8px;
+                background: #E0E0E0;
+                margin: 11px;
+                padding: 9px;
+                font-size: 11px;
+                width: 66%;
+            }
+
+            .message.me {
+                background: #4591E4;
+                color: #fff;
+                margin-left: 23%;
+            }
+
+            .iphone-screen {
+                position: absolute;
+                top: 18%;
+                bottom: 16%;
+                left: 6%;
+                right: 6%;
+                background: #fff;
+                color: #444;
+            }
+
+            .iphone-screen ::-webkit-scrollbar {
+                display: none;
+            }
+
+            .header-mimic, .header, .footer-mimic, .footer {
+                position: absolute;
+                height: 10%;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .header-mimic, .header {
+                top: 0;
+            }
+
+            .footer-mimic, .footer {
+                bottom: 0;
+            }
+
+            .header, .footer {
+                background: rgba(255, 255, 255, 0.3);
+                -webkit-box-sizing: border-box;
+                padding: 10px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            .header-mimic, .footer-mimic {
+                -webkit-filter: blur(5px);
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            .mimic-outer {
+                -webkit-user-select: none;
+                pointer-events: none;
+            }
+
+            .mimic-outer .mimic {
+                -webkit-filter: blur(20px) grayscale(1);
+                -webkit-transform: rotateX(-110deg) translateZ(50px);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="iphone-outer">
+            <div class="iphone">
+                <div class="iphone-screen">
+                    <div class="header-mimic"></div>
+                    <div class="header">Messages</div>
+                    <div class="messages">
+                        <div class="message">Did you get that thing I sent you?</div>
+                        <div class="message me">Yeah, I did.</div>
+                        <div class="message">Pretty sweet, right?</div>
+                        <div class="message me">Definitely sweet.</div>
+                        <div class="message">Did you get that thing I sent you?</div>
+                        <div class="message me">Yeah, I did.</div>
+                        <div class="message">Pretty sweet, right?</div>
+                        <div class="message me">Definitely sweet.</div>
+                        <div class="message">Did you get that thing I sent you?</div>
+                        <div class="message me">Yeah, I did.</div>
+                        <div class="message">Pretty sweet, right?</div>
+                        <div class="message me">Definitely sweet.</div>
+                        <div class="message">Did you get that thing I sent you?</div>
+                        <div class="message me">Yeah, I did.</div>
+                        <div class="message">Pretty sweet, right?</div>
+                        <div class="message me">Definitely sweet.</div>
+                        <div class="message">Did you get that thing I sent you?</div>
+                        <div class="message me">Yeah, I did.</div>
+                        <div class="message">Pretty sweet, right?</div>
+                        <div class="message me">Definitely sweet.</div>
+                    </div>
+                    <div class="footer-mimic"></div>
+                    <div class="footer">Compose...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- script>mimicOptions = {auto: false};</script -->
+        <script src="/mimic/mimic.js"></script>
+
+        <style class="header-mimic-styles"></style>
+        <style class="footer-mimic-styles"></style>
+
+        <script>
+            (function(){
+                var headerMimic, footerMimic;
+
+                headerMimic = new Mimic({ el: $('.messages')[0], placement: '.header-mimic' });
+                footerMimic = new Mimic({ el: $('.messages')[0], placement: '.footer-mimic' });
+
+                var $messages, $mimicMessages;
+
+                $messages = $('.iphone-screen > .messages');
+
+                $mimicMessages = $('.mimic-outer .messages');
+
+                $('.header-mimic-styles').html('.header-mimic .messages { padding-top: ' + Math.round($('.header-mimic .messages').height()) + 'px }');
+                $('.footer-mimic-styles').html('.footer-mimic .messages { padding-bottom: ' + Math.round($('.footer-mimic .messages').height()) + 'px }');
+
+                $messages.scroll(function(){
+                    $mimicMessages.each(function(){
+                        if ($(this).parents('.footer-mimic').length) {
+                            $(this).scrollTop($messages.get(0).scrollTop + ($(this).offset().top - $messages.offset().top));
+                        } else {
+                            $(this).scrollTop($messages.get(0).scrollTop);
+                        }
+                    });
+                });
+
+                $messages.scroll();
+            })();
+        </script>
+
+        <!-- Share -->
+
+        <!-- Start of Async HubSpot Analytics Code -->
+        <script type="text/javascript">
+            (function(d,s,i,r) {
+                if (d.getElementById(i)){return;}
+                var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+                n.id=i;n.src='//js.hubspot.com/analytics/'+(Math.ceil(new Date()/r)*r)+'/51294.js';
+                e.parentNode.insertBefore(n, e);
+            })(document,"script","hs-analytics",300000);
+        </script>
+        <!-- End of Async HubSpot Analytics Code -->
+
+        <!-- Force 3d acceleration always and forever :) -->
+        <div style="-webkit-transform: translateZ(0)"></div>
+    </body>
+</html>
